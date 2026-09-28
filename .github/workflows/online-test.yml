@@ -1,0 +1,20 @@
+name: Online Test Preview
+on:
+  push:
+    branches: [online-test]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  preview:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Prepare preview artifact
+        run: |
+          mkdir -p preview
+          cp online-test.html preview/index.html
+      - uses: actions/upload-artifact@v4
+        with:
+          name: more-less-online-test
+          path: preview
